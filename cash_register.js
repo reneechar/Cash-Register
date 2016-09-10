@@ -8,13 +8,16 @@ var todaysCashRegister = calculatorModule();
 var currentDisplayArray = [];
 var theOpperand = '';
 var tempMemory;
-
+//instead of clearDisplay() for clicking opperands, manually use updatedisplay;
 function clearDisplay() {
 	updatedisplay('empty the current display array');
 	display.innerHTML = '0';
 };
 
-
+function opperatorSelected() {
+	updatedisplay('empty the current display array');
+	display.innerHTML = tempMemory;
+}
 
 //controls what's currently on display
 function updatedisplay(newcontent) {
@@ -141,7 +144,8 @@ let plus = document.getElementById('add');
 plus.addEventListener('click', function(){
 	tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
 
-	clearDisplay();
+	opperatorSelected();
+	
 	theOpperand = 'plus';
 	console.log('you clicked the + button');
 });
@@ -150,7 +154,9 @@ let minus = document.getElementById('subtract');
 minus.addEventListener('click', function(){
 	tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
 
-	clearDisplay();
+	opperatorSelected();
+
+
 	theOpperand = 'minus';
 
 	console.log('you clicked the - button');
@@ -160,7 +166,10 @@ let multiply = document.getElementById('multiply');
 multiply.addEventListener('click', function(){
 	tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
 
-	clearDisplay();	theOpperand = 'multiply';
+	opperatorSelected();
+
+
+	theOpperand = 'multiply';
 
 	console.log('you clicked the × button');
 });
@@ -169,7 +178,9 @@ let divide = document.getElementById('divide');
 divide.addEventListener('click', function(){
 	tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
 
-	clearDisplay();	theOpperand = 'divide';
+	opperatorSelected();
+
+	theOpperand = 'divide';
 
 	console.log('you clicked the ÷ button');
 });
