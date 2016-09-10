@@ -11,12 +11,9 @@ var tempMemory;
 
 function clearDisplay() {
 	updatedisplay('empty the current display array');
-	updatedisplay('');
+	display.innerHTML = '0';
 };
 
-function resetCalculatorTotal() {
-
-};
 
 
 //controls what's currently on display
