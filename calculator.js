@@ -1,7 +1,14 @@
-module.exports = function() {
+/**
+ * Declare a function named `calculatorModule`
+ * this function will have two private variables declared inside of it.
+ * @variable PRIVATE { Number } `memory`
+ * @variable PRIVATE { Number } `total`
+ * @return {object} `calculator` object that can be used
+ */
+
+function calculatorModule() {
   let _memory = 0;
   let _total = 0;
-  let _displayedNumber = [];
   
   return {
   /**
@@ -9,20 +16,14 @@ module.exports = function() {
    * @param  { Number } x
    * @return { Number }    current total
    */
-    load: function(digit){
-      if (digit === undefined) {
-        return _displayedNumber;
-      }
-      if(_displayedNumber.indexOf('.') >= 0 && digit === '.'){
-        throw new Error('You can only have one decimal in a number.')
-      } else {
-        _displayedNumber.push(digit);
-        return _displayedNumber;
-      }
+    load: function(newTotal){
+     if(typeof newTotal !== 'number') {
+      throw new Error('Did not enter a number to load')
+     } else {
+      _total = newTotal;
+      return _total;
+     }
     },
-    
-
-
 
   /**
    * Return the value of `total`
@@ -35,15 +36,13 @@ module.exports = function() {
   /**
    * Sums the value passed in with `total`
    * @param { Number } x
-   *valueToAdd is an array of digits in a number
    */
-    add: function(valueToAdd) {
-      var valueAsNum = parseFloat(valueToAdd.join(''));
-      if(typeof valueAsNum !== 'number') {
+    addition: function(valueToAdd) {
+      if(typeof valueToAdd !== 'number') {
        throw new Error('Did not enter a number to add')
       } else {
-       _memory += valueAsNum;
-       return _memory;
+       _total += valueToAdd;
+       return _total;
       }
     },
 
@@ -51,45 +50,39 @@ module.exports = function() {
    * Subtracts the value passed in from `total`
    * @param  { Number } x
    */
-    subtract: function(valueToSubtract) {
-      var valueAsNum = parseFloat(valueToSubtract.join(''));
-
-      if(typeof valueAsNum !== 'number') {
-        throw new Error('Did not enter a number to subtract')
-      } else {
-        _memory -= valueAsNum;
-        return _memory;
-      }
-    },
+   subtract: function(valueToSubtract) {
+    if(typeof valueToSubtract !== 'number') {
+      throw new Error('Did not enter a number to subtract')
+    } else {
+      _total -= valueToSubtract;
+      return _total;
+    }
+   },
 
 
   /**
    * Multiplies the value by `total`
    * @param  { Number } x
    */
-    multiply: function(valueToMultiply) {
-      var valueAsNum = parseFloat(valueToMultiply.join(''));
-
-      if(typeof valueAsNum !== 'number') {
-        throw new Error('Did not enter a number to multiply')
-      } else {
-        _memory *= valueAsNum;
-        return _memory;
-      }
-    },
+   multiply: function(valueToMultiply) {
+    if(typeof valueToMultiply !== 'number') {
+      throw new Error('Did not enter a number to multiply')
+    } else {
+      _total *= valueToMultiply;
+      return _total;
+    }
+   },
 
   /**
    * Divides the value passing in by `total`
    * @param  { Number } x
    */
-    divide: function(valueToDivide) {
-      var valueAsNum = parseFloat(valueToDivide.join(''));
-
-    if(typeof valueAsNum !== 'number') {
+   divide: function(valueToDivide) {
+    if(typeof valueToDivide !== 'number') {
       throw new Error('Did not enter a number to divide')
     } else {
-      _memory /= valueAsNum;
-      return _memory;
+      _total /= valueToDivide;
+      return _total;
     }
    },
 
@@ -103,11 +96,10 @@ module.exports = function() {
 
 
   /**
-   * Stores the value of `total` to `memory` and clears _displayedNumber
+   * Stores the value of `total` to `memory`
    */
-    saveMemory: function() {
-      _memory = parseFloat(_displayedNumber.join(''));
-      _displayedNumber = [];
+    saveMemory: function(theTotal) {
+      _memory = _total;
       return _memory;
     },
 
@@ -117,10 +109,7 @@ module.exports = function() {
     clearMemory: function() {
       _memory = 0;
       return _memory;
-    },
-
-    
-
+    }
   /**
    * Validation
    */
