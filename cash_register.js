@@ -42,6 +42,7 @@ let getBalanceElement = document.getElementById('getBalance');
 getBalanceElement.addEventListener('click', function(){
 	clearDisplay();
 	updatedisplay(todaysCashRegister.getTotal());
+	updatedisplay('empty the current display array');
 });
 
 
@@ -145,7 +146,7 @@ plus.addEventListener('click', function(){
 	tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
 
 	opperatorSelected();
-	
+
 	theOpperand = 'plus';
 	console.log('you clicked the + button');
 });
