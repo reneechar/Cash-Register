@@ -4,12 +4,43 @@ var todaysCalculator = calculatorModule();
 //todaysCashRegister will hold all the memory from depositing and withdrawing cash
 var todaysCashRegister = calculatorModule();
 
+clearDisplay();
 
 var currentDisplayArray = [];
 var theOpperand = '';
 var tempMemory;
+var secondInputNum;
+var clickCount = 1;
+/* 1 + 2 = 3
+* = -> 3 + 2 = 5
+* = -> 5 + 2 = 7
+*----
+* 5 - 1 = 4
+* = -> 4 - 1 = 3
+* = -> 3 - 1 = 2
+*
+*
+*/
 
-clearDisplay();
+function runEqualLoopAdd() {
+	var result = parseFloat(currentDisplayArray.join('')) + secondInputNum;
+	console.log('the second input number is ' + secondInputNum);
+	todaysCalculator.load(result);
+};
+function runEqualLoopSubtract() {
+	var result = parseFloat(currentDisplayArray.join('')) - secondInputNum;
+	todaysCalculator.load(result);
+};
+function runEqualLoopDivide() {
+	var result = parseFloat(currentDisplayArray.join('')) / secondInputNum;
+	todaysCalculator.load(result);
+};
+function runEqualLoopMultiply() {
+	var result = parseFloat(currentDisplayArray.join('')) * secondInputNum;
+	todaysCalculator.load(result);
+}
+
+
 
 //instead of clearDisplay() for clicking opperands, manually use updatedisplay;
 function clearDisplay() {
@@ -159,6 +190,8 @@ plus.addEventListener('click', function(){
 
 	theOpperand = 'plus';
 	console.log('you clicked the + button');
+	clickCount = 0;
+
 });
 
 let minus = document.getElementById('subtract');
@@ -171,6 +204,7 @@ minus.addEventListener('click', function(){
 	theOpperand = 'minus';
 
 	console.log('you clicked the - button');
+	clickCount = 0;
 });
 
 let multiply = document.getElementById('multiply');
@@ -183,6 +217,8 @@ multiply.addEventListener('click', function(){
 	theOpperand = 'multiply';
 
 	console.log('you clicked the × button');
+	clickCount = 0;
+
 });
 
 let divide = document.getElementById('divide');
@@ -194,28 +230,51 @@ divide.addEventListener('click', function(){
 	theOpperand = 'divide';
 
 	console.log('you clicked the ÷ button');
+	clickCount = 0;
+
 });
 
 let equals = document.getElementById('equal');
 equals.addEventListener('click', function(){
 	console.log('the currentDisplayArray contains: ' + currentDisplayArray);
-	if (theOpperand === 'plus') {
-		todaysCalculator.addition(parseFloat(currentDisplayArray.join('')));	
-	} else if (theOpperand === 'minus') {
-		todaysCalculator.subtract(parseFloat(currentDisplayArray.join('')));
+	clickCount++;
 
-	} else if (theOpperand === 'multiply') {
-		todaysCalculator.multiply(parseFloat(currentDisplayArray.join('')));
-
-	} else if (theOpperand === 'divide') {
-		todaysCalculator.divide(parseFloat(currentDisplayArray.join('')));
-
-	} else {
-		todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
+	if (clickCount < 2) {
+		secondInputNum = parseFloat(currentDisplayArray.join(''));
 	}
-	var x = todaysCalculator.saveMemory(todaysCalculator.getTotal());
+	
+	console.log('clickCount is ' + clickCount);
+	if (theOpperand === 'plus') {
+		if (clickCount > 1) {
+			runEqualLoopAdd();
+		} else {
+		todaysCalculator.addition(secondInputNum);
+		}
+	} else if (theOpperand === 'minus') {
+		if (clickCount > 1) {
+			runEqualLoopSubtract();
+		} else {
+		todaysCalculator.subtract(secondInputNum);
+		}
+	} else if (theOpperand === 'multiply') {
+		if (clickCount > 1) {
+			runEqualLoopMultiply();
+		} else {
+			todaysCalculator.multiply(secondInputNum);
+		}
+	} else if (theOpperand === 'divide') {
+		if (clickCount > 1) {
+			runEqualLoopDivide();
+		} else {
+			todaysCalculator.divide(secondInputNum);
+		}
+	} else {
+		todaysCalculator.load(secondInputNum);
+	}
+
+
 	clearDisplay();
-	updatedisplay(x);
+	updatedisplay(todaysCalculator.getTotal());
 
 	console.log('you clicked the = button');
 });
