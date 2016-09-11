@@ -1,5 +1,12 @@
+/**
+ * Declare a function named `calculatorModule`
+ * this function will have two private variables declared inside of it.
+ * @variable PRIVATE { Number } `memory`
+ * @variable PRIVATE { Number } `total`
+ * @return {object} `calculator` object that can be used
+ */
 
-function calculator() {
+function calculatorModule() {
   let _memory = 0;
   let _total = 0;
   
@@ -30,7 +37,7 @@ function calculator() {
    * Sums the value passed in with `total`
    * @param { Number } x
    */
-    add: function(valueToAdd) {
+    addition: function(valueToAdd) {
       if(typeof valueToAdd !== 'number') {
        throw new Error('Did not enter a number to add')
       } else {
@@ -91,7 +98,7 @@ function calculator() {
   /**
    * Stores the value of `total` to `memory`
    */
-    saveMemory: function(theTotal) {
+    saveMemory: function() {
       _memory = _total;
       return _memory;
     },
