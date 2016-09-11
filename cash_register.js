@@ -8,6 +8,9 @@ var todaysCashRegister = calculatorModule();
 var currentDisplayArray = [];
 var theOpperand = '';
 var tempMemory;
+
+clearDisplay();
+
 //instead of clearDisplay() for clicking opperands, manually use updatedisplay;
 function clearDisplay() {
 	updatedisplay('empty the current display array');
@@ -201,7 +204,7 @@ equals.addEventListener('click', function(){
 		todaysCalculator.divide(parseFloat(currentDisplayArray.join('')));
 
 	} else {
-		console.log('do nothing here');
+		todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
 	}
 	var x = todaysCalculator.saveMemory(todaysCalculator.getTotal());
 	clearDisplay();
