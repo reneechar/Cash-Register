@@ -184,8 +184,14 @@ zerozero.addEventListener('click', function(){
 
 let plus = document.getElementById('add');
 plus.addEventListener('click', function(){
-	tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
-
+	/*if (currentDisplayArray ===[]) {
+	*	tempMemory = todaysCalculator.load(0);
+	*	updatedisplay('0');
+	*} else {
+	*/
+		tempMemory = todaysCalculator.load(parseFloat(currentDisplayArray.join('')));
+	//}
+	
 	opperatorSelected();
 
 	theOpperand = 'plus';
