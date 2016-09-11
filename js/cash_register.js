@@ -65,7 +65,8 @@ deposit.addEventListener('click', function(){
 //withdraw cash
 let withdraw = document.getElementById('withdrawCash');
 withdraw.addEventListener('click', function(){
-	if (todaysCalculator.getTotal() < 0) {
+	if (todaysCalculator.getTotal() - parseFloat(currentDisplayArray.join('')) < 0) {
+		clearDisplay();
 		throw new Error('You withdrew too much money');
 	} else {
 		todaysCashRegister.subtract(parseFloat(currentDisplayArray.join('')));	
